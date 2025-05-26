@@ -83,29 +83,101 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Typing animation for hero title
-function typeWriter(element, text, speed = 100) {
-    let i = 0;
-    element.innerHTML = '';
+// Enhanced typing animation for hero subtitle
+function typeWriter(element, texts, speed = 100) {
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
     
     function type() {
-        if (i < text.length) {
-            element.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(type, speed);
+        const currentText = texts[textIndex];
+        
+        if (isDeleting) {
+            element.textContent = currentText.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            element.textContent = currentText.substring(0, charIndex + 1);
+            charIndex++;
         }
+        
+        let typeSpeed = speed;
+        
+        if (isDeleting) {
+            typeSpeed /= 2;
+        }
+        
+        if (!isDeleting && charIndex === currentText.length) {
+            typeSpeed = 2000; // Pause at end
+            isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            textIndex = (textIndex + 1) % texts.length;
+            typeSpeed = 500; // Pause before next text
+        }
+        
+        setTimeout(type, typeSpeed);
     }
+    
     type();
 }
 
-// Initialize typing animation when page loads
+// Initialize enhanced animations when page loads
 window.addEventListener('load', () => {
-    const heroTitle = document.querySelector('.hero-title');
-    if (heroTitle) {
-        const originalText = heroTitle.innerHTML;
-        typeWriter(heroTitle, originalText, 50);
+    const typingElement = document.querySelector('.typing-text');
+    if (typingElement) {
+        const texts = [
+            'Data Scientist',
+            'AI Engineer',
+            'Machine Learning Engineer',
+            'Computer Vision Specialist'
+        ];
+        typeWriter(typingElement, texts, 100);
     }
+    
+    // Animate hero elements on load
+    animateHeroElements();
 });
+
+// Animate hero elements with staggered delays
+function animateHeroElements() {
+    const elements = [
+        { selector: '.greeting', delay: 200 },
+        { selector: '.hero-title', delay: 400 },
+        { selector: '.role-container', delay: 600 },
+        { selector: '.hero-description', delay: 800 },
+        { selector: '.hero-highlights', delay: 1000 },
+        { selector: '.hero-actions', delay: 1200 },
+        { selector: '.social-links', delay: 1400 },
+        { selector: '.scroll-indicator', delay: 1600 }
+    ];
+    
+    elements.forEach(({ selector, delay }) => {
+        const element = document.querySelector(selector);
+        if (element) {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(30px)';
+            element.style.transition = 'all 0.6s ease';
+            
+            setTimeout(() => {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }, delay);
+        }
+    });
+    
+    // Animate profile image
+    const profileImage = document.querySelector('.profile-image');
+    if (profileImage) {
+        profileImage.style.opacity = '0';
+        profileImage.style.transform = 'scale(0.8)';
+        profileImage.style.transition = 'all 0.8s ease';
+        
+        setTimeout(() => {
+            profileImage.style.opacity = '1';
+            profileImage.style.transform = 'scale(1)';
+        }, 300);
+    }
+}
 
 // Skill tags hover effect
 document.querySelectorAll('.skill-tag').forEach(tag => {
