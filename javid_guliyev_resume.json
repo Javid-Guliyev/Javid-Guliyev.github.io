@@ -1,0 +1,167 @@
+{
+    "personal_information": {
+        "name": "Javid Guliyev",
+        "phone": "+994 553370181",
+        "email": "javid.glyv@gmail.com",
+        "linkedin": "https://linkedin.com/in/javidglyv",
+        "github": "https://github.com/JavidGlyv"
+    },
+    "work_experience": [
+        {
+            "position": "Data Scientist",
+            "company": "International Bank of Azerbaijan (ABB)",
+            "location": "Baku, Azerbaijan",
+            "start_date": "2025-03-10",
+            "end_date": "Current",
+            "responsibilities": [
+                "Worked with various Large Language Models (LLMs) and implemented multi-agent system architectures",
+                "Contributed to real-time AI system integrations serving millions of customers",
+                "Collaborated on AI-powered backend solutions",
+                "Applied prompt engineering techniques and integrated external tools into virtual assistant chatbots",
+                "Actively participated in agile development processes and team discussions"
+            ]
+        },
+        {
+            "position": "Leading ML Engineer (Remote)",
+            "company": "Pitecsh LLC",
+            "location": "Boston, United States",
+            "start_date": "2024-11-02",
+            "end_date": "Current",
+            "responsibilities": [
+                "Led a team of AI engineers, managing projects in computer vision and AI infrastructure focused on aerial imagery",
+                "Designed and deployed scalable AI/ML solutions, optimizing model performance for remote sensing applications",
+                "Developed and fine-tuned computer vision models for instance segmentation, land classification in aerial images",
+                "Created and assigned tasks, ensuring efficient project distribution across the team",
+                "Maintained AI infrastructure, ensuring smooth deployment, monitoring, and integration of models"
+            ]
+        },
+        {
+            "position": "Computer Science Teacher (Part-time)",
+            "company": "UFAZ French-Azerbaijani University",
+            "location": "Baku, Azerbaijan",
+            "start_date": "2023-11-20",
+            "end_date": "Current",
+            "responsibilities": [
+                "Developing and delivering lectures on various computer science topics",
+                "Supervising and mentoring undergraduate students"
+            ]
+        },
+        {
+            "position": "Artificial Intelligence (AI) Engineer",
+            "company": "Digital Umbrella",
+            "location": "Baku, Azerbaijan",
+            "start_date": "2022-08-01",
+            "end_date": "2025-03-07",
+            "responsibilities": [
+                "Developed deep learning models, including CNNs, Super-Resolution, and GANs, for computer vision tasks",
+                "Designed and deployed data pipelines using Apache Airflow to streamline and automate data workflows",
+                "Utilized OCR, page recognition models and Regex to extract valuable insights from unstructured scanned text data",
+                "Created interactive dashboards in Streamlit, enabling real-time data visualization and insights",
+                "Managed PostgreSQL and MSSQL databases to ensure efficient data storage and retrieval",
+                "Worked with RAG, LangChain, and OpenAI models to develop sophisticated AI applications",
+                "Integrated TTS and STT models to enable voice-powered functionality in applications"
+            ]
+        },
+        {
+            "position": "Artificial Intelligence Instructor",
+            "company": "Codesociete",
+            "location": "Baku, Azerbaijan",
+            "start_date": "2024-08-15",
+            "end_date": "2025-02",
+            "responsibilities": [
+                "Taught Python, Machine Learning, and Deep Learning concepts to students/professionals",
+                "Designed and delivered hands-on training sessions covering data preprocessing, model building, and deployment",
+                "Explained core ML algorithms and deep learning architectures",
+                "Guided students in implementing real-world projects using TensorFlow, PyTorch, and Scikit-Learn",
+                "Provided mentorship, helping students transition into AI/ML careers"
+            ]
+        },
+        {
+            "position": "Data Science Research Trainee",
+            "company": "ICube Strasbourg",
+            "location": "Strasbourg, France",
+            "start_date": "2022-02-15",
+            "end_date": "2022-07-27",
+            "responsibilities": [
+                "Evaluated machine learning algorithms for positioning problems using magnetic fields",
+                "Developed high-performance models with Random Forest (RF), XGboost, ensemble methods, SVM and linear regression",
+                "Optimized models using Optuna and Hyperopt for enhanced accuracy and efficiency",
+                "Conducted exploratory data analysis (EDA) and created 3D plots for data visualization"
+            ]
+        },
+        {
+            "position": "Software Engineer Intern",
+            "company": "Qvant",
+            "location": "Baku, Azerbaijan",
+            "start_date": "2019-04-01",
+            "end_date": "2019-09-30",
+            "responsibilities": [
+                "Introduced and integrated features, elevating analytical visualization at Inloya.com and partner projects",
+                "Created API endpoints with ASP.NET & C# and implemented operations database management",
+                "Developed responsive web pages using HTML, CSS, and JavaScript"
+            ]
+        }
+    ],
+    "education": [
+        {
+            "degree": "M.Sc. Data Science and Artificial Intelligence",
+            "institution": "French-Azerbaijani University",
+            "start_date": "2020-09-01",
+            "end_date": "2022-06-30"
+        },
+        {
+            "degree": "B.Sc. Computer Engineering",
+            "institution": "Azerbaijan State Oil and Industry University",
+            "start_date": "2016-09-15",
+            "end_date": "2020-06-30"
+        },
+        {
+            "degree": "Software Engineering",
+            "institution": "STEP IT Academy",
+            "start_date": "2017-08-01",
+            "end_date": "2020-12-01"
+        }
+    ],
+    "skills": {
+        "general": [
+            "Problem analysis & Problem Solving",
+            "Geospatial Analysis",
+            "Machine Learning",
+            "Deep Learning",
+            "Data Science"
+        ],
+        "programming": [
+            "Python",
+            "OOP",
+            "SQL",
+            "Numpy",
+            "Matplotlib",
+            "PyTorch",
+            "OpenCV",
+            "YOLO",
+            "Pandas",
+            "Scikit-Learn",
+            "XGBoost",
+            "LightGBM",
+            "Tensorflow",
+            "C/C++",
+            "CUDA",
+            "Streamlit",
+            "PostgreSQL",
+            "MSSQL",
+            "FastAPI",
+            "GDAL/Rasterio",
+            "GeoPandas"
+        ],
+        "tools": [
+            "Linux",
+            "Apache AirFlow",
+            "Git",
+            "Docker",
+            "Github",
+            "IT Essentials Cisco",
+            "Jupyter Notebook",
+            "QGIS"
+        ]
+    }
+}

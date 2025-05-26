@@ -1,0 +1,37 @@
+{
+    "blogs": [
+        {
+            "id": 1,
+            "title": "The Future of AI in Banking: Transforming Customer Experience",
+            "excerpt": "Exploring how artificial intelligence is revolutionizing the banking sector and creating personalized customer experiences at scale.",
+            "content": "As a Data Scientist working at International Bank of Azerbaijan, I've witnessed firsthand how AI is transforming the banking industry. From chatbots that understand natural language to predictive models that prevent fraud, AI is reshaping every aspect of financial services...",
+            "date": "2025-01-15",
+            "readTime": "5 min read",
+            "tags": ["AI", "Banking", "Machine Learning", "Customer Experience"],
+            "image": "assets/images/blogs/ai-banking.jpg",
+            "featured": true
+        },
+        {
+            "id": 2,
+            "title": "Computer Vision for Aerial Imagery: Challenges and Solutions",
+            "excerpt": "Deep dive into the technical challenges of processing aerial imagery and how modern computer vision techniques solve real-world problems.",
+            "content": "Working as a Leading ML Engineer at Pitecsh LLC has given me extensive experience in computer vision applications for aerial imagery. In this post, I'll share insights about the unique challenges we face when working with satellite and drone imagery...",
+            "date": "2025-01-10",
+            "readTime": "8 min read",
+            "tags": ["Computer Vision", "Remote Sensing", "Deep Learning", "YOLO"],
+            "image": "assets/images/blogs/aerial-cv.jpg",
+            "featured": false
+        },
+        {
+            "id": 3,
+            "title": "Teaching AI: Bridging Theory and Practice",
+            "excerpt": "Reflections on teaching computer science and AI concepts, and how to make complex topics accessible to students.",
+            "content": "As a Computer Science Teacher at UFAZ French-Azerbaijani University, I've learned that teaching AI requires a delicate balance between theoretical foundations and practical applications. Here are my thoughts on effective AI education...",
+            "date": "2025-01-05",
+            "readTime": "6 min read",
+            "tags": ["Education", "Teaching", "AI", "University"],
+            "image": "assets/images/blogs/teaching-ai.jpg",
+            "featured": false
+        }
+    ]
+} 
