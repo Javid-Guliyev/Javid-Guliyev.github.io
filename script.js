@@ -460,7 +460,277 @@ function openBlogModal(blogId) {
     // You can implement a modal or navigate to a separate blog page here
 }
 
+// 3D Particle Waves Background
+class ParticleWavesBackground {
+    constructor() {
+        this.canvas = document.getElementById('particle-waves-canvas');
+        this.hero = document.querySelector('.hero');
+        this.interactiveBg = document.querySelector('.interactive-bg');
+        this.shapes = document.querySelectorAll('.shape');
+        
+        // Three.js variables
+        this.camera = null;
+        this.scene = null;
+        this.renderer = null;
+        this.particles = null;
+        this.count = 0;
+        this.mouseX = 0;
+        this.mouseY = 0;
+        this.windowHalfX = window.innerWidth / 2;
+        this.windowHalfY = window.innerHeight / 2;
+        
+        // Configuration
+        this.SEPARATION = 60;
+        this.AMOUNTX = 120;
+        this.AMOUNTY = 120;
+        
+        this.init();
+    }
+
+    async init() {
+        // Check if device supports 3D effects
+        if (this.isMobile() || !this.supportsWebGL()) {
+            this.initFallback();
+            return;
+        }
+
+        try {
+            // Import Three.js
+            const THREE = await import('three');
+            this.THREE = THREE;
+            
+            this.initThreeJS();
+            this.bindEvents();
+            this.animate();
+        } catch (error) {
+            console.warn('Failed to load 3D background, using fallback:', error);
+            this.initFallback();
+        }
+    }
+
+    isMobile() {
+        return window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+
+    supportsWebGL() {
+        try {
+            const canvas = document.createElement('canvas');
+            return !!(window.WebGLRenderingContext && canvas.getContext('webgl'));
+        } catch (e) {
+            return false;
+        }
+    }
+
+    initThreeJS() {
+        const THREE = this.THREE;
+        
+        // Create camera
+        this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 50000);
+        const distance = 1500;
+        const angle = Math.PI / 6; // 30 degrees
+        this.camera.position.x = Math.sin(angle) * distance;
+        this.camera.position.y = 400;
+        this.camera.position.z = Math.cos(angle) * distance;
+
+        // Create scene
+        this.scene = new THREE.Scene();
+
+        // Create particles
+        this.createParticles();
+
+        // Create renderer
+        this.renderer = new THREE.WebGLRenderer({ 
+            canvas: this.canvas,
+            antialias: true,
+            alpha: true 
+        });
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setClearColor(0x000000, 0);
+    }
+
+    createParticles() {
+        const THREE = this.THREE;
+        const numParticles = this.AMOUNTX * this.AMOUNTY;
+        const positions = new Float32Array(numParticles * 3);
+        const scales = new Float32Array(numParticles);
+
+        let i = 0, j = 0;
+
+        for (let ix = 0; ix < this.AMOUNTX; ix++) {
+            for (let iy = 0; iy < this.AMOUNTY; iy++) {
+                positions[i] = ix * this.SEPARATION - ((this.AMOUNTX * this.SEPARATION) / 2);
+                positions[i + 1] = 0;
+                positions[i + 2] = iy * this.SEPARATION - ((this.AMOUNTY * this.SEPARATION) / 2);
+
+                scales[j] = 1;
+
+                i += 3;
+                j++;
+            }
+        }
+
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geometry.setAttribute('scale', new THREE.BufferAttribute(scales, 1));
+
+        const material = new THREE.ShaderMaterial({
+            uniforms: {
+                color: { value: new THREE.Color(0x3b82f6) },
+            },
+            vertexShader: document.getElementById('vertexshader').textContent,
+            fragmentShader: document.getElementById('fragmentshader').textContent,
+            transparent: true
+        });
+
+        this.particles = new THREE.Points(geometry, material);
+        this.scene.add(this.particles);
+    }
+
+    bindEvents() {
+        document.addEventListener('mousemove', (e) => {
+            this.mouseX = e.clientX - this.windowHalfX;
+            this.mouseY = e.clientY - this.windowHalfY;
+            this.updateInteractiveElements(e);
+        });
+
+        window.addEventListener('resize', () => {
+            this.onWindowResize();
+        });
+
+        document.addEventListener('mouseleave', () => {
+            this.resetInteractiveElements();
+        });
+    }
+
+    updateInteractiveElements(e) {
+        // Update gradient background
+        if (this.interactiveBg) {
+            const rect = this.hero.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            
+            this.interactiveBg.style.background = `radial-gradient(circle at ${x}% ${y}%, 
+                rgba(59, 130, 246, 0.25) 0%, 
+                rgba(147, 51, 234, 0.15) 25%, 
+                rgba(16, 185, 129, 0.08) 50%, 
+                transparent 70%)`;
+        }
+
+        // Update floating shapes
+        this.shapes.forEach((shape) => {
+            const rect = shape.getBoundingClientRect();
+            const shapeCenterX = rect.left + rect.width / 2;
+            const shapeCenterY = rect.top + rect.height / 2;
+            
+            const distance = Math.sqrt(
+                Math.pow(e.clientX - shapeCenterX, 2) + 
+                Math.pow(e.clientY - shapeCenterY, 2)
+            );
+            
+            const maxDistance = 200;
+            const influence = Math.max(0, 1 - distance / maxDistance);
+            
+            const moveX = (e.clientX - shapeCenterX) * influence * 0.05;
+            const moveY = (e.clientY - shapeCenterY) * influence * 0.05;
+            const scale = 1 + influence * 0.2;
+            const opacity = 0.6 + influence * 0.3;
+            
+            shape.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scale})`;
+            shape.style.opacity = opacity;
+        });
+    }
+
+    resetInteractiveElements() {
+        if (this.interactiveBg) {
+            this.interactiveBg.style.background = `radial-gradient(circle at 50% 50%, 
+                rgba(59, 130, 246, 0.15) 0%, 
+                rgba(147, 51, 234, 0.1) 25%, 
+                rgba(16, 185, 129, 0.05) 50%, 
+                transparent 70%)`;
+        }
+
+        this.shapes.forEach(shape => {
+            shape.style.transform = 'translate(0px, 0px) scale(1)';
+            shape.style.opacity = '0.6';
+        });
+    }
+
+    onWindowResize() {
+        this.windowHalfX = window.innerWidth / 2;
+        this.windowHalfY = window.innerHeight / 2;
+
+        if (this.camera && this.renderer) {
+            this.camera.aspect = window.innerWidth / window.innerHeight;
+            this.camera.updateProjectionMatrix();
+            this.renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+    }
+
+    animate() {
+        if (!this.renderer) return;
+        
+        this.render();
+        requestAnimationFrame(() => this.animate());
+    }
+
+    render() {
+        // Update camera position based on mouse
+        this.camera.position.x += (-this.mouseX * 2 - this.camera.position.x) * 0.05;
+        
+        const elevationRange = 300;
+        const baseHeight = 400;
+        const targetY = baseHeight + (this.mouseY / this.windowHalfY) * elevationRange;
+        this.camera.position.y += (targetY - this.camera.position.y) * 0.05;
+        
+        this.camera.lookAt(this.scene.position);
+
+        // Update particle positions and scales
+        const positions = this.particles.geometry.attributes.position.array;
+        const scales = this.particles.geometry.attributes.scale.array;
+
+        let i = 0, j = 0;
+
+        for (let ix = 0; ix < this.AMOUNTX; ix++) {
+            for (let iy = 0; iy < this.AMOUNTY; iy++) {
+                positions[i + 1] = (Math.sin((ix + this.count) * 0.08) * 80) +
+                                  (Math.sin((iy + this.count) * 0.12) * 60);
+
+                scales[j] = (Math.sin((ix + this.count) * 0.08) + 1) * 8 +
+                           (Math.sin((iy + this.count) * 0.12) + 1) * 8;
+
+                i += 3;
+                j++;
+            }
+        }
+
+        this.particles.geometry.attributes.position.needsUpdate = true;
+        this.particles.geometry.attributes.scale.needsUpdate = true;
+
+        this.renderer.render(this.scene, this.camera);
+        this.count += 0.08;
+    }
+
+    initFallback() {
+        // Hide the canvas and show simple background effects
+        if (this.canvas) {
+            this.canvas.style.display = 'none';
+        }
+        
+        // Initialize simple interactive background
+        this.bindEvents();
+    }
+}
+
+// Initialize particle waves background
+let particleWavesBackground;
+
 // Load blogs when page loads
 document.addEventListener('DOMContentLoaded', () => {
     loadBlogs();
+    
+    // Initialize particle waves background after a short delay
+    setTimeout(() => {
+        particleWavesBackground = new ParticleWavesBackground();
+    }, 500);
 }); 

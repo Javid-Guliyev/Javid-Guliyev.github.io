@@ -7,6 +7,15 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Three.js Import Map -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js"
+            }
+        }
+    </script>
 </head>
 <body>
     <!-- Navigation -->
@@ -49,14 +58,38 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-background">
+            <canvas id="particle-waves-canvas"></canvas>
+            <div class="interactive-bg"></div>
+            <div class="particles-container"></div>
+            <div class="grid-overlay"></div>
             <div class="floating-shapes">
                 <div class="shape shape-1"></div>
                 <div class="shape shape-2"></div>
                 <div class="shape shape-3"></div>
                 <div class="shape shape-4"></div>
                 <div class="shape shape-5"></div>
+                <div class="shape shape-6"></div>
             </div>
         </div>
+        
+        <!-- Vertex Shader -->
+        <script type="x-shader/x-vertex" id="vertexshader">
+            attribute float scale;
+            void main() {
+                vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+                gl_PointSize = scale * ( 300.0 / - mvPosition.z );
+                gl_Position = projectionMatrix * mvPosition;
+            }
+        </script>
+
+        <!-- Fragment Shader -->
+        <script type="x-shader/x-fragment" id="fragmentshader">
+            uniform vec3 color;
+            void main() {
+                if ( length( gl_PointCoord - vec2( 0.5, 0.5 ) ) > 0.475 ) discard;
+                gl_FragColor = vec4( color, 1.0 );
+            }
+        </script>
         
         <div class="hero-container">
             <div class="hero-content">
