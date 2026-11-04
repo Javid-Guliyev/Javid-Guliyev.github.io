@@ -51,3 +51,13 @@ Mean Acceleration Measured: -8.58 m/s²
 Why Acceleration is Noisy: Differentiating data compares adjacent points, which magnifies small measurement errors; taking two derivatives amplifies this noise significantly compared to the smooth position curve. Numerical differentiation acts as a high-pass filter that magnifies small, random noise present in the position data, causing double differentiation to severely swamp the acceleration values with noise.
 
 Integration Results: Integrating back acts as a summation process that averages and cancels out random noise, successfully recovering the original position within 1 meter.
+
+
+
+
+## PW2 --- Lab B: Optimization in Chemistry
+
+- **Part 2 (Three routes to a minimum):** Compared gradient descent, Newton's method, and SLSQP on convex and complex functions. On convex functions, all methods reached the global minimum. On complex landscapes, starting points determined whether Newton's method found a local minimum or a maximum based on $g''(x)$ sign.
+- **Part 3 (Kinetics):** Fitted the first-order reaction rate constant using SLSQP optimization. Resulting $k$ value is successfully verified via `kinetics.png`.
+- **Part 4 (Chemical Equilibrium):** Solved equilibrium concentration for $H_2 + I_2 \rightleftharpoons 2HI$ using both Newton and SLSQP methods, yielding consistent results. Visualized via `equilibrium.png`.
+- **Part 5 (Titration Equivalence Point):** Located the steepest pH change using `np.gradient`, identifying the equivalence point (`titration.png`).
