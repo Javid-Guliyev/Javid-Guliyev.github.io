@@ -1,127 +1,63 @@
-# Javid Guliyev - Personal Website
+# CSPC — Computer Science for Physics and Chemistry
 
-A modern, responsive personal website showcasing my professional experience, skills, and education as a Data Scientist and AI Engineer.
+My coursework repository for the course.
+Each practical lives under `PW<n>/Lab <X>/`.
 
-## 🌟 Features
+## Setup
 
-- **Responsive Design**: Fully responsive layout that works on all devices
-- **Modern UI/UX**: Clean, professional design with smooth animations
-- **Interactive Navigation**: Smooth scrolling with active section highlighting
-- **Mobile-Friendly**: Hamburger menu for mobile devices
-- **Scroll Animations**: Elements animate as they come into view
-- **Performance Optimized**: Throttled scroll events and optimized loading
+Create and activate the environment for a given lab:
 
-## 📁 Project Structure
+```bash
+conda env create -f "PW<n>/Lab <X>/environment.yml"
+conda activate cspc
 
-```
-├── index.html          # Main HTML file
-├── styles.css          # CSS styles and responsive design
-├── script.js           # JavaScript for interactivity
-├── javid_guliyev_resume.json  # Resume data in JSON format
-├── README.md           # Project documentation
-└── CNAME              # GitHub Pages custom domain
-```
 
-## 🎨 Sections
+PW1 — Lab A: Reproducible Foundations & Radioactive Decay Simulation
+What I built:
 
-1. **Hero Section**: Introduction with call-to-action buttons, resume download, and social links
-2. **About**: Personal summary with key statistics
-3. **Experience**: Timeline of work experience with detailed responsibilities
-4. **Education**: Academic background and certifications
-5. **Skills**: Technical skills organized by categories
-6. **Blog**: Dynamic blog posts loaded from JSON (hidden if empty)
-7. **Contact**: Contact information and social media links
+Configured the CSPC repository environment, developed a stochastic radioactive decay simulation in Python using both loops and NumPy, and implemented unit tests.
 
-## 🛠️ Technologies Used
+Speed Comparison Results:
 
-- **HTML5**: Semantic markup
-- **CSS3**: Modern styling with Flexbox and Grid
-- **JavaScript (ES6+)**: Interactive functionality
-- **Font Awesome**: Icons
-- **Google Fonts**: Inter font family
+Pure-Python loop time: 2.7887 seconds
 
-## 🚀 Deployment
+NumPy vectorised time: 0.0003 seconds
 
-This website is designed to be deployed as a static site. It's compatible with:
+Speed-up factor: ~9176.89x faster
 
-- GitHub Pages
-- Netlify
-- Vercel
-- Any static hosting service
+Test Status:
 
-### GitHub Pages Deployment
+pytest -v output: 3 passed in 0.12s
 
-1. Push the code to a GitHub repository
-2. Go to repository Settings > Pages
-3. Select source branch (usually `main` or `master`)
-4. Your site will be available at `https://username.github.io/repository-name`
+Conclusion:
 
-## 📱 Responsive Breakpoints
+Using NumPy's vectorised operations significantly outperforms pure-Python loops for simulating radioactive decay, reducing execution time drastically while maintaining accurate stochastic results.
 
-- **Desktop**: 1200px and above
-- **Tablet**: 768px - 1199px
-- **Mobile**: Below 768px
-- **Small Mobile**: Below 480px
 
-## 🎯 Key Features
 
-### Navigation
-- Fixed navigation bar with blur effect
-- Smooth scrolling to sections
-- Active section highlighting
-- Mobile hamburger menu
+PW1 — Lab B: Automated Workflows
+Results & Analysis:
 
-### Animations
-- Fade-in animations for content sections
-- Hover effects on interactive elements
-- Scroll progress indicator
-- Stats counter animation
-- Timeline reveal animations
+The observed decay data follows an exponential decrease over time. Based on the generated figure, the experimental data points closely match the theoretical analytical law, demonstrating the expected decay behavior.
 
-### Performance
-- Throttled scroll events
-- Intersection Observer for animations
-- Optimized CSS and JavaScript
-- Fast loading times
+Pipeline Automation:
 
-## 🔧 Customization
+The Snakemake pipeline automates the generation of figure.png from decay_observed.csv using plot.py, rebuilding the visualization only when input files are modified.
 
-To customize the website with your own information:
 
-1. Update the content in `index.html`
-2. Modify the `javid_guliyev_resume.json` file with your data
-3. Replace `assets/resume.pdf` with your actual resume PDF
-4. Adjust colors and styling in `styles.css`
-5. Update social media links and contact information
+PW2 — Lab A: Numerical Differentiation & Integration
+Mean Acceleration Measured: -8.58 m/s²
 
-## 📊 Resume Data Structure
+Why Acceleration is Noisy: Differentiating data compares adjacent points, which magnifies small measurement errors; taking two derivatives amplifies this noise significantly compared to the smooth position curve. Numerical differentiation acts as a high-pass filter that magnifies small, random noise present in the position data, causing double differentiation to severely swamp the acceleration values with noise.
 
-The website uses data from `javid_guliyev_resume.json` which includes:
+Integration Results: Integrating back acts as a summation process that averages and cancels out random noise, successfully recovering the original position within 1 meter.
 
-- Personal information
-- Work experience
-- Education
-- Skills (general, programming, tools)
 
-## 🌐 Browser Support
 
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
 
-## 📄 License
+## PW2 --- Lab B: Optimization in Chemistry
 
-This project is open source and available under the [MIT License](LICENSE).
-
-## 👨‍💻 About
-
-Created by Javid Guliyev - Data Scientist & AI Engineer
-
-- 📧 Email: javid.glyv@gmail.com
-- 💼 LinkedIn: [linkedin.com/in/javidglyv](https://linkedin.com/in/javidglyv)
-- 🐙 GitHub: [github.com/JavidGlyv](https://github.com/JavidGlyv)
-
----
-
-*Last updated: January 2025*
+- **Part 2 (Three routes to a minimum):** Compared gradient descent, Newton's method, and SLSQP on convex and complex functions. On convex functions, all methods reached the global minimum. On complex landscapes, starting points determined whether Newton's method found a local minimum or a maximum based on $g''(x)$ sign.
+- **Part 3 (Kinetics):** Fitted the first-order reaction rate constant using SLSQP optimization. Resulting $k$ value is successfully verified via `kinetics.png`.
+- **Part 4 (Chemical Equilibrium):** Solved equilibrium concentration for $H_2 + I_2 \rightleftharpoons 2HI$ using both Newton and SLSQP methods, yielding consistent results. Visualized via `equilibrium.png`.
+- **Part 5 (Titration Equivalence Point):** Located the steepest pH change using `np.gradient`, identifying the equivalence point (`titration.png`).
